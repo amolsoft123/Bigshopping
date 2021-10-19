@@ -4,7 +4,7 @@ from app import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from .forms import LoginForm
+from .forms import LoginForm, MyPasswordChangeForm
 
 
 urlpatterns = [
@@ -26,6 +26,7 @@ urlpatterns = [
     path('topwear/<slug:data>', views.topwear, name='topweardata'),
     path('accounts/login/', auth_views.LoginView.as_view (template_name='app/login.html', authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+    path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='app/passwordchange.html', form_class=MyPasswordChangeForm), name='passwordchange'),
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),
     path('checkout/', views.checkout, name='checkout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
